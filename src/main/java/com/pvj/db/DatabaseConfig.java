@@ -2,25 +2,17 @@ package com.pvj.db;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
-@Component
 public class DatabaseConfig {
-
-    //@Value("${spring.datasource.url}")
-    private String dbUrl = "jdbc:mysql://bdde21b7cf435e:9c6eeaa8@us-cdbr-east-04.cleardb.com/heroku_9bf29f35787134a?reconnect=true";
-
     @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(dbUrl);
-        return new HikariDataSource(config);
+        return new org.apache.tomcat.jdbc.pool.DataSource();
     }
 }
