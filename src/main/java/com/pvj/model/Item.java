@@ -17,7 +17,7 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ITEM_ID")
 	private int itemId;
-	@Column(name = "ITEM_NAME")
+	@Column(name = "ITEM_NAME", length = 10, nullable = false, unique = false)
 	private String itemName;
 	@Column(name = "ITEM_STATUS")
 	private ItemStatus itemStatus;
