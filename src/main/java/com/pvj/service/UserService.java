@@ -29,7 +29,7 @@ public class UserService {
 	@Autowired
 	private UserValidationUtil userValidationUtil;
 
-	@Autowired
+	
 	private UserRepository userRepository;
 
 	private UserResponse userResponse = new UserResponse();
