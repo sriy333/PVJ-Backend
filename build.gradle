@@ -33,4 +33,5 @@ dependencies {
 	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.3.Final'
 	implementation group: 'org.flywaydb', name: 'flyway-core', version: '5.2.4'
 	implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '8.5.34'
+	//implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.9.Final'
 }
