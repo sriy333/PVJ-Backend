@@ -18,4 +18,5 @@ public class ItemConstants {
 	public static final String ENAMEL_REMARKS = "enamelRemarks";
 	public static final String RODIUM_REMARKS = "rodiumRemarks";
 	public static final String ITEM_QUALITY = "itemQuality";
+	public static final String ITEM_CREATED_BY = "itemCreateBy";
 }

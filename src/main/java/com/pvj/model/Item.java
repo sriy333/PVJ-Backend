@@ -49,6 +49,10 @@ public class Item {
 	private String rodiumRemarks;
 	@Column(name = "ITEM_LAST_UPDATED_TIME")
 	private LocalDateTime itemLastUpdated;
+	@Column(name = "ITEM_CREATED_BY")
+	private String itemCreatedBy;
+	@Column(name = "ITEM_WORKED_BY")
+	private String itemWorkedBy;
 
 	public Item() {
 
@@ -57,7 +61,7 @@ public class Item {
 	public Item(int itemId, String itemName, ItemStatus itemStatus, String itemType, LocalDateTime orderedDate,
 			long itemPrice, String itemPhoto, int itemQuantity, long itemQuality, long itemSize, long itemWeight,
 			LocalDateTime expectedDeliveryTime, String itemRemarks, String stoneRemarks, String enamelRemarks,
-			String rodiumRemarks, LocalDateTime itemLastUpdated) {
+			String rodiumRemarks, LocalDateTime itemLastUpdated, String itemCreatedBy, String itemWorkedBy) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -76,6 +80,8 @@ public class Item {
 		this.enamelRemarks = enamelRemarks;
 		this.rodiumRemarks = rodiumRemarks;
 		this.itemLastUpdated = itemLastUpdated;
+		this.itemCreatedBy = itemCreatedBy;
+		this.itemWorkedBy = itemWorkedBy;
 	}
 
 	public int getItemId() {
@@ -214,12 +220,29 @@ public class Item {
 		this.itemLastUpdated = itemLastUpdated;
 	}
 
+	public String getItemCreatedBy() {
+		return itemCreatedBy;
+	}
+
+	public void setItemCreatedBy(String itemCreatedBy) {
+		this.itemCreatedBy = itemCreatedBy;
+	}
+
+	public String getItemWorkedBy() {
+		return itemWorkedBy;
+	}
+
+	public void setItemWorkedBy(String itemWorkedBy) {
+		this.itemWorkedBy = itemWorkedBy;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((enamelRemarks == null) ? 0 : enamelRemarks.hashCode());
 		result = prime * result + ((expectedDeliveryTime == null) ? 0 : expectedDeliveryTime.hashCode());
+		result = prime * result + ((itemCreatedBy == null) ? 0 : itemCreatedBy.hashCode());
 		result = prime * result + itemId;
 		result = prime * result + ((itemLastUpdated == null) ? 0 : itemLastUpdated.hashCode());
 		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
@@ -232,6 +255,7 @@ public class Item {
 		result = prime * result + ((itemStatus == null) ? 0 : itemStatus.hashCode());
 		result = prime * result + ((itemType == null) ? 0 : itemType.hashCode());
 		result = prime * result + (int) (itemWeight ^ (itemWeight >>> 32));
+		result = prime * result + ((itemWorkedBy == null) ? 0 : itemWorkedBy.hashCode());
 		result = prime * result + ((orderedDate == null) ? 0 : orderedDate.hashCode());
 		result = prime * result + ((rodiumRemarks == null) ? 0 : rodiumRemarks.hashCode());
 		result = prime * result + ((stoneRemarks == null) ? 0 : stoneRemarks.hashCode());
@@ -256,6 +280,11 @@ public class Item {
 			if (other.expectedDeliveryTime != null)
 				return false;
 		} else if (!expectedDeliveryTime.equals(other.expectedDeliveryTime))
+			return false;
+		if (itemCreatedBy == null) {
+			if (other.itemCreatedBy != null)
+				return false;
+		} else if (!itemCreatedBy.equals(other.itemCreatedBy))
 			return false;
 		if (itemId != other.itemId)
 			return false;
@@ -296,6 +325,11 @@ public class Item {
 			return false;
 		if (itemWeight != other.itemWeight)
 			return false;
+		if (itemWorkedBy == null) {
+			if (other.itemWorkedBy != null)
+				return false;
+		} else if (!itemWorkedBy.equals(other.itemWorkedBy))
+			return false;
 		if (orderedDate == null) {
 			if (other.orderedDate != null)
 				return false;
@@ -321,7 +355,8 @@ public class Item {
 				+ ", itemQuantity=" + itemQuantity + ", itemQuality=" + itemQuality + ", itemSize=" + itemSize
 				+ ", itemWeight=" + itemWeight + ", expectedDeliveryTime=" + expectedDeliveryTime + ", itemRemarks="
 				+ itemRemarks + ", stoneRemarks=" + stoneRemarks + ", enamelRemarks=" + enamelRemarks
-				+ ", rodiumRemarks=" + rodiumRemarks + ", itemLastUpdated=" + itemLastUpdated + "]";
+				+ ", rodiumRemarks=" + rodiumRemarks + ", itemLastUpdated=" + itemLastUpdated + ", itemCreatedBy="
+				+ itemCreatedBy + ", itemWorkedBy=" + itemWorkedBy + "]";
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.pvj.util;
 
+import static com.pvj.constants.ItemConstants.ITEM_CREATED_BY;
 import static com.pvj.constants.ItemConstants.ITEM_NAME;
 import static com.pvj.constants.ItemConstants.ITEM_QUALITY;
 import static com.pvj.constants.ItemConstants.ITEM_QUANTITY;
@@ -43,6 +44,10 @@ public class ItemValidationUtil {
 			if (json.get(ITEM_QUALITY) == null
 					|| ((json.get(ITEM_QUALITY) != null && (json.get(ITEM_QUALITY).isJsonNull())))) {
 				errorMessage.append("ITEM_QUALITY");
+			}
+			if (json.get(ITEM_CREATED_BY) == null
+					|| ((json.get(ITEM_CREATED_BY) != null && (json.get(ITEM_CREATED_BY).isJsonNull())))) {
+				errorMessage.append("ITEM_CREATED_BY");
 			}
 			if (errorMessage.length() == 0) {
 				LOGGER.info("All Mandatory parameter are received");

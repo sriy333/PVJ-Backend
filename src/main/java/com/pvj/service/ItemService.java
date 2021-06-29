@@ -38,10 +38,10 @@ public class ItemService {
 	public Item saveItem(String body) throws GlobalResponseException {
 		LOGGER.info("Navigating for validation");
 		Boolean isValidated = itemValidationUtil.postRequestItemManditoryCheckParam(body);
+		Item item = null;
 		if (isValidated) {
-			itemValidationUtil.postItemValidationUtil(body);
+			item = CommonUtil.getGsonInstance().fromJson(body, Item.class);
 		}
-		Item item = CommonUtil.getGsonInstance().fromJson(body, Item.class);
 		Item response = itemResponse.populateItemResponse(item);
 		itemRepository.save(response);
 		return response;
