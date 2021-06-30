@@ -90,7 +90,8 @@ public class UserService {
 		try {
 			LOGGER.info("Updating user info in the db");
 			User user = CommonUtil.getGsonInstance().fromJson(body, User.class);
-			User userInfo = userResponse.populateUserObj(user);
+			User existUserDetails = getUserByName(user.getUserName());
+			User userInfo = userResponse.populateUserObj(user,existUserDetails);
 			userRepository.save(userInfo);
 			User response = userResponse.populateUserResponse(userInfo);
 			return response;

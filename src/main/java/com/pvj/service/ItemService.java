@@ -73,9 +73,9 @@ public class ItemService {
 
 	public Item updateItem(String body, int itemId) throws GlobalResponseException {
 		LOGGER.info("updating the item");
-		getItemById(itemId);
+		Item existingItem = getItemById(itemId);
 		Item item = CommonUtil.getGsonInstance().fromJson(body, Item.class);
-		Item responseItem = itemResponse.populateItemObj(item, itemId);
+		Item responseItem = itemResponse.populateItemObj(item, existingItem);
 		itemRepository.save(responseItem);
 		return responseItem;
 

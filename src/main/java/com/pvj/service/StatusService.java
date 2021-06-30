@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pvj.constants.UserConstants;
 import com.pvj.db.ItemRepository;
 import com.pvj.db.UserRepository;
 import com.pvj.exception.GlobalResponseException;
@@ -35,8 +36,11 @@ public class StatusService {
 			LOGGER.info("Requesting db for statusReady");
 			List<Item> itemList = getItemList();
 			List<Item> statusResponse = null;
-			if (itemList.size() > 0) {
+			String userType = checkUserType(user);
+			if (userType.equals(UserConstants.SHOP)) {
 				statusResponse = filterRecordsByUserAndStatus(user, status, itemList);
+			} else if (userType.equals(UserConstants.WORKER)) {
+				statusResponse = filterRecordByWorkerStatus(user, status, itemList);
 			}
 			LOGGER.info("Successfully fetched db with status : " + status);
 			return statusResponse;
@@ -45,6 +49,18 @@ public class StatusService {
 			throw new SqlDBException("", SQL_CONNECTION_EXCEPTION);
 		}
 
+	}
+
+	private String checkUserType(String user) throws GlobalResponseException {
+		List<User> userList = getUserList();
+		User userInfo = userList.stream().filter(User -> User.getUserShopName().equals(user)).findFirst().get();
+		if (UserConstants.SHOP.equals(userInfo.getUserType().toString())) {
+			return UserConstants.SHOP;
+		} else if (UserConstants.WORKER.equals(userInfo.getUserType().toString())) {
+			return UserConstants.WORKER;
+		} else {
+			return null;
+		}
 	}
 
 	public List<Item> getItemList() throws GlobalResponseException {
@@ -80,28 +96,55 @@ public class StatusService {
 		List<Item> statusResponse = new ArrayList<>();
 		status = status.toUpperCase();
 		if (status.equals(ItemStatus.ORDER.toString())) {
-			statusResponse = itemList.stream().filter(
-					Item -> Item.getItemStatus().equals(ItemStatus.ORDER.toString()) && Item.getItemCreatedBy().equals(user))
-					.collect(Collectors.toList());
+			statusResponse = itemList.stream().filter(Item -> Item.getItemStatus().equals(ItemStatus.ORDER.toString())
+					&& Item.getItemCreatedBy().equals(user)).collect(Collectors.toList());
 		} else if (status.equals(ItemStatus.INPROGRESS.toString())) {
-			statusResponse = itemList.stream()
-					.filter(e -> e.getItemStatus().equals(ItemStatus.INPROGRESS.toString()) && e.getItemCreatedBy().equals(user))
-					.collect(Collectors.toList());
+			statusResponse = itemList.stream().filter(e -> e.getItemStatus().equals(ItemStatus.INPROGRESS.toString())
+					&& e.getItemCreatedBy().equals(user)).collect(Collectors.toList());
 		} else if (status.equals(ItemStatus.OREDERED_DEW.toString())) {
-			statusResponse = itemList.stream()
-					.filter(e -> e.getItemStatus().equals(ItemStatus.OREDERED_DEW.toString()) && e.getItemCreatedBy().equals(user))
-					.collect(Collectors.toList());
+			statusResponse = itemList.stream().filter(e -> e.getItemStatus().equals(ItemStatus.OREDERED_DEW.toString())
+					&& e.getItemCreatedBy().equals(user)).collect(Collectors.toList());
 		} else if (status.equals(ItemStatus.PENDING.toString())) {
-			statusResponse = itemList.stream()
-					.filter(e -> e.getItemStatus().equals(ItemStatus.PENDING.toString()) && e.getItemCreatedBy().equals(user))
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.PENDING.toString()) && e.getItemCreatedBy().equals(user))
 					.collect(Collectors.toList());
 		} else if (status.equals(ItemStatus.READY.toString())) {
-			statusResponse = itemList.stream()
-					.filter(e -> e.getItemStatus().equals(ItemStatus.READY.toString()) && e.getItemCreatedBy().equals(user))
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.READY.toString()) && e.getItemCreatedBy().equals(user))
 					.collect(Collectors.toList());
 		} else if (status.equals(ItemStatus.REJECTED.toString())) {
-			statusResponse = itemList.stream()
-					.filter(e -> e.getItemStatus().equals(ItemStatus.REJECTED.toString()) && e.getItemCreatedBy().equals(user))
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.REJECTED.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		}
+		return statusResponse;
+	}
+
+	public List<Item> filterRecordByWorkerStatus(String user, String status, List<Item> itemList) {
+		LOGGER.info("status : " + status.toUpperCase());
+		status = status.toUpperCase();
+		List<Item> statusResponse = new ArrayList<>();
+		if (ItemStatus.ORDER.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(Item -> Item.getItemStatus().equals(ItemStatus.ORDER.toString())
+					&& Item.getItemWorkedBy().equals(user)).collect(Collectors.toList());
+		} else if (ItemStatus.INPROGRESS.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.INPROGRESS.toString()) && e.getItemWorkedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (ItemStatus.OREDERED_DEW.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(e -> e.getItemStatus().equals(ItemStatus.OREDERED_DEW.toString())
+					&& e.getItemWorkedBy().equals(user)).collect(Collectors.toList());
+		} else if (ItemStatus.PENDING.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.PENDING.toString()) && e.getItemWorkedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (ItemStatus.READY.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.READY.toString()) && e.getItemWorkedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (ItemStatus.REJECTED.toString().equals(status)) {
+			statusResponse = itemList.stream().filter(
+					e -> e.getItemStatus().equals(ItemStatus.REJECTED.toString()) && e.getItemWorkedBy().equals(user))
 					.collect(Collectors.toList());
 		}
 		return statusResponse;

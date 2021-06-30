@@ -1,7 +1,5 @@
 package com.pvj.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,7 +36,7 @@ public class User {
 	@Column(name = "USER_TYPE")
 	private UserType userType;
 	@Column(name = "LAST_UPDATED")
-	private Date lastUpdated;
+	private String lastUpdated;
 	@Column(name = "LAST_UPDATED_BY")
 	private String lastUpdatedBy;
 
@@ -47,7 +45,7 @@ public class User {
 	}
 
 	public User(int userId, String userName, String userShopName, String password, String phoneNumber, String gender,
-			String emailId, UserScope userScope, UserType userType, Date lastUpdated, String lastUpdatedBy) {
+			String emailId, UserScope userScope, UserType userType, String lastUpdated, String lastUpdatedBy) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -145,11 +143,11 @@ public class User {
 		this.userType = userType;
 	}
 
-	public Date getLastUpdated() {
+	public String getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Date lastUpdated) {
+	public void setLastUpdated(String lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 

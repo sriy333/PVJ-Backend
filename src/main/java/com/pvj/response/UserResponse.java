@@ -1,5 +1,7 @@
 package com.pvj.response;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.pvj.constants.HTTPStatusCode;
@@ -15,13 +17,14 @@ public class UserResponse {
 
 	public User populateUserResponse(User user) {
 		User obj = new User();
+		obj.setUserId(user.getUserId());
 		obj.setUserName(user.getUserName());
 		obj.setPassword(user.getPassword());
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
 		obj.setUserShopName(user.getUserShopName());
-		obj.setLastUpdated(user.getLastUpdated());
+		obj.setLastUpdated(LocalDateTime.now().toString());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
 		if(user.getUserType().equals(UserType.SHOP)) {
 			obj.setUserType(UserType.SHOP);
@@ -46,16 +49,16 @@ public class UserResponse {
 		return response;
 	}
 
-	public User populateUserObj(User user) {
+	public User populateUserObj(User user, User existingUserDetials) {
 		User obj = new User();
-		obj.setUserId(user.getUserId());
+		obj.setUserId(existingUserDetials.getUserId());
 		obj.setUserName(user.getUserName());
 		obj.setPassword(user.getPassword());
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
 		obj.setUserShopName(user.getUserShopName());
-		obj.setLastUpdated(user.getLastUpdated());
+		obj.setLastUpdated(LocalDateTime.now().toString());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
 		obj.setUserType(user.getUserType());
 		obj.setUserScope(user.getUserScope());

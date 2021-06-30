@@ -14,4 +14,7 @@ public class UserConstants {
 	public static final String LAST_UPDATED_BY = "lastUpdatedBy";
 	
 	public static final String REGEX_ALLOW_ALL_CHARACTER = "[a-z0-9]+";
+	
+	public static final String SHOP = "SHOP";
+	public static final String WORKER = "WORKER";
 }

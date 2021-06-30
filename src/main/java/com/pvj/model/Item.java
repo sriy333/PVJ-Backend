@@ -38,7 +38,7 @@ public class Item {
 	@Column(name = "ITEM_WEIGHT")
 	private long itemWeight;
 	@Column(name = "EXPECTED_DELIVERY_TIME")
-	private LocalDateTime expectedDeliveryTime;
+	private String expectedDeliveryTime;
 	@Column(name = "ITEM_REMARKS")
 	private String itemRemarks;
 	@Column(name = "STONE_REMARKS")
@@ -48,7 +48,7 @@ public class Item {
 	@Column(name = "RODIUM_REMARKS")
 	private String rodiumRemarks;
 	@Column(name = "ITEM_LAST_UPDATED_TIME")
-	private LocalDateTime itemLastUpdated;
+	private String itemLastUpdated;
 	@Column(name = "ITEM_CREATED_BY")
 	private String itemCreatedBy;
 	@Column(name = "ITEM_WORKED_BY")
@@ -60,8 +60,8 @@ public class Item {
 
 	public Item(int itemId, String itemName, String itemStatus, String itemType, LocalDateTime orderedDate,
 			long itemPrice, String itemPhoto, int itemQuantity, long itemQuality, long itemSize, long itemWeight,
-			LocalDateTime expectedDeliveryTime, String itemRemarks, String stoneRemarks, String enamelRemarks,
-			String rodiumRemarks, LocalDateTime itemLastUpdated, String itemCreatedBy, String itemWorkedBy) {
+			String expectedDeliveryTime, String itemRemarks, String stoneRemarks, String enamelRemarks,
+			String rodiumRemarks, String itemLastUpdated, String itemCreatedBy, String itemWorkedBy) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -172,11 +172,11 @@ public class Item {
 		this.itemWeight = itemWeight;
 	}
 
-	public LocalDateTime getExpectedDeliveryTime() {
+	public String getExpectedDeliveryTime() {
 		return expectedDeliveryTime;
 	}
 
-	public void setExpectedDeliveryTime(LocalDateTime expectedDeliveryTime) {
+	public void setExpectedDeliveryTime(String expectedDeliveryTime) {
 		this.expectedDeliveryTime = expectedDeliveryTime;
 	}
 
@@ -212,11 +212,11 @@ public class Item {
 		this.rodiumRemarks = rodiumRemarks;
 	}
 
-	public LocalDateTime getItemLastUpdated() {
+	public String getItemLastUpdated() {
 		return itemLastUpdated;
 	}
 
-	public void setItemLastUpdated(LocalDateTime itemLastUpdated) {
+	public void setItemLastUpdated(String itemLastUpdated) {
 		this.itemLastUpdated = itemLastUpdated;
 	}
 

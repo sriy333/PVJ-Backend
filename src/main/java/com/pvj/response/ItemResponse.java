@@ -31,9 +31,14 @@ public class ItemResponse {
 		itemObj.setRodiumRemarks(item.getRodiumRemarks());
 		itemObj.setStoneRemarks(item.getStoneRemarks());
 		itemObj.setEnamelRemarks(item.getEnamelRemarks());
-		itemObj.setItemLastUpdated(LocalDateTime.now());
+		itemObj.setItemLastUpdated(LocalDateTime.now().toString());
 		itemObj.setItemCreatedBy(item.getItemCreatedBy());
-		itemObj.setItemWorkedBy(item.getItemWorkedBy());
+		if(item.getItemWorkedBy()==null) {
+			itemObj.setItemWorkedBy("null");
+		}else {
+			itemObj.setItemWorkedBy(item.getItemWorkedBy());
+		}
+		itemObj.setExpectedDeliveryTime(LocalDateTime.now().plusDays(15).toString());
 		return itemObj;
 	}
 	
@@ -42,9 +47,9 @@ public class ItemResponse {
         return CommonUtil.getGsonInstance().toJson(error);
     }
 	
-	public Item populateItemObj(Item item, int itemId) {
+	public Item populateItemObj(Item item, Item existItem) {
 		Item itemObj = new Item();
-		itemObj.setItemId(itemId);
+		itemObj.setItemId(existItem.getItemId());
 		itemObj.setItemName(item.getItemName());
 		itemObj.setItemPhoto(item.getItemPhoto());
 		itemObj.setItemPrice(item.getItemPrice());
@@ -59,7 +64,11 @@ public class ItemResponse {
 		itemObj.setRodiumRemarks(item.getRodiumRemarks());
 		itemObj.setStoneRemarks(item.getStoneRemarks());
 		itemObj.setEnamelRemarks(item.getEnamelRemarks());
-		itemObj.setItemLastUpdated(LocalDateTime.now());
+		itemObj.setItemLastUpdated(LocalDateTime.now().toString());
+		itemObj.setItemCreatedBy(item.getItemCreatedBy());
+		itemObj.setExpectedDeliveryTime(item.getExpectedDeliveryTime());
+		itemObj.setItemWorkedBy(item.getItemWorkedBy());
+		
 		return itemObj;
 	}
 	

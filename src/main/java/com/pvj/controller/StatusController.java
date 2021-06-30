@@ -30,4 +30,6 @@ public class StatusController {
 		LOGGER.info("Successfully completed status " + status);
 		return response;
 	}
+	
+	
 }
