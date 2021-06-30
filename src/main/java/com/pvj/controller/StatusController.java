@@ -23,10 +23,10 @@ public class StatusController {
 	@Autowired
 	private StatusService statusService;
 
-	@GetMapping(value = "/status/{status}", produces = "application/json")
-	public List<Item> getReadyStatus(@PathVariable String status) throws GlobalResponseException {
+	@GetMapping(value = "/status/{user}/{status}", produces = "application/json")
+	public List<Item> getReadyStatus(@PathVariable String user,@PathVariable String status) throws GlobalResponseException {
 		LOGGER.info("Initiating request for status : " + status);
-		List<Item> response = statusService.statusReady(status);
+		List<Item> response = statusService.statusReady(user, status);
 		LOGGER.info("Successfully completed status " + status);
 		return response;
 	}

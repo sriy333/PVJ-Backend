@@ -7,6 +7,7 @@ import com.pvj.exception.GlobalResponseException;
 import com.pvj.model.ErrorMessage;
 import com.pvj.model.SuccessResponse;
 import com.pvj.model.User;
+import com.pvj.model.UserType;
 import com.pvj.util.CommonUtil;
 
 @Component
@@ -22,7 +23,14 @@ public class UserResponse {
 		obj.setUserShopName(user.getUserShopName());
 		obj.setLastUpdated(user.getLastUpdated());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
-		obj.setUserType(user.getUserType());
+		if(user.getUserType().equals(UserType.SHOP)) {
+			obj.setUserType(UserType.SHOP);
+		}else if(user.getUserType().equals(UserType.WORKER)) {
+			obj.setUserType(UserType.WORKER);
+		}else {
+			obj.setUserType(null);
+		}
+		
 		obj.setUserScope(user.getUserScope());
 		return obj;
 	}

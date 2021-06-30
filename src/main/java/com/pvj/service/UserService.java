@@ -41,8 +41,10 @@ public class UserService {
 			userValidationUtil.postUserValidationRequest(body);
 		}
 		User user = CommonUtil.getGsonInstance().fromJson(body, User.class);
-		userRepository.save(user);
 		User response = userResponse.populateUserResponse(user);
+		LOGGER.info("Storing response to db");
+		userRepository.save(response);
+		LOGGER.info("Record db successfully completed");
 		return response;
 	}
 

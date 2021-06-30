@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pvj.db.ItemRepository;
+import com.pvj.db.UserRepository;
 import com.pvj.exception.GlobalResponseException;
 import com.pvj.exception.SqlDBException;
 import com.pvj.model.Item;
 import com.pvj.model.ItemStatus;
+import com.pvj.model.User;
 
 @Service
 public class StatusService {
@@ -25,41 +27,84 @@ public class StatusService {
 	@Autowired
 	private ItemRepository itemRepository;
 
-	public List<Item> statusReady(String status) throws GlobalResponseException {
+	@Autowired
+	private UserRepository userRepository;
+
+	public List<Item> statusReady(String user, String status) throws GlobalResponseException {
 		try {
 			LOGGER.info("Requesting db for statusReady");
-			Iterable<Item> data = itemRepository.findAll();
-			List<Item> list = new ArrayList<>();
-			data.forEach(e -> list.add(e));
-			List<Item> statusResponse = new ArrayList<>();
-			LOGGER.info("status : "+ status.toUpperCase());
-			status = status.toUpperCase();
-			if (status.equals(ItemStatus.ORDER.toString())) {
-				LOGGER.info(status+"is reached");
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.ORDER))
-						.collect(Collectors.toList());
-			} else if (status.equals(ItemStatus.INPROGRESS.toString())) {
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.INPROGRESS))
-						.collect(Collectors.toList());
-			} else if (status.equals(ItemStatus.OREDERED_DEW.toString())) {
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.OREDERED_DEW))
-						.collect(Collectors.toList());
-			} else if (status.equals(ItemStatus.PENDING.toString())) {
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.PENDING))
-						.collect(Collectors.toList());
-			} else if (status.equals(ItemStatus.READY.toString())) {
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.READY))
-						.collect(Collectors.toList());
-			} else if (status.equals(ItemStatus.REJECTED.toString())) {
-				statusResponse = list.stream().filter(e -> e.getItemStatus().equals(ItemStatus.REJECTED))
-						.collect(Collectors.toList());
+			List<Item> itemList = getItemList();
+			List<Item> statusResponse = null;
+			if (itemList.size() > 0) {
+				statusResponse = filterRecordsByUserAndStatus(user, status, itemList);
 			}
-			LOGGER.info("Successfully fetched db with status : "+ status);
+			LOGGER.info("Successfully fetched db with status : " + status);
 			return statusResponse;
+
 		} catch (Exception ex) {
 			throw new SqlDBException("", SQL_CONNECTION_EXCEPTION);
 		}
 
+	}
+
+	public List<Item> getItemList() throws GlobalResponseException {
+		try {
+			LOGGER.info("Fetching Item Records from DB");
+			Iterable<Item> itemInfo = itemRepository.findAll();
+			List<Item> itemList = new ArrayList<>();
+			itemInfo.forEach(e -> itemList.add(e));
+			LOGGER.info("Successfully Item Records from DB");
+			return itemList;
+		} catch (Exception ex) {
+			throw new SqlDBException("", SQL_CONNECTION_EXCEPTION);
+		}
+
+	}
+
+	public List<User> getUserList() throws GlobalResponseException {
+		try {
+			LOGGER.info("Fetching User Records from DB");
+			Iterable<User> userInfo = userRepository.findAll();
+			List<User> userList = new ArrayList<>();
+			userInfo.forEach(e -> userList.add(e));
+			LOGGER.info("Successfully User Records from DB");
+			return userList;
+		} catch (Exception ex) {
+			throw new SqlDBException("", SQL_CONNECTION_EXCEPTION);
+		}
+
+	}
+
+	public List<Item> filterRecordsByUserAndStatus(String user, String status, List<Item> itemList) {
+		LOGGER.info("status : " + status.toUpperCase());
+		List<Item> statusResponse = new ArrayList<>();
+		status = status.toUpperCase();
+		if (status.equals(ItemStatus.ORDER.toString())) {
+			statusResponse = itemList.stream().filter(
+					Item -> Item.getItemStatus().equals(ItemStatus.ORDER.toString()) && Item.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (status.equals(ItemStatus.INPROGRESS.toString())) {
+			statusResponse = itemList.stream()
+					.filter(e -> e.getItemStatus().equals(ItemStatus.INPROGRESS.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (status.equals(ItemStatus.OREDERED_DEW.toString())) {
+			statusResponse = itemList.stream()
+					.filter(e -> e.getItemStatus().equals(ItemStatus.OREDERED_DEW.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (status.equals(ItemStatus.PENDING.toString())) {
+			statusResponse = itemList.stream()
+					.filter(e -> e.getItemStatus().equals(ItemStatus.PENDING.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (status.equals(ItemStatus.READY.toString())) {
+			statusResponse = itemList.stream()
+					.filter(e -> e.getItemStatus().equals(ItemStatus.READY.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		} else if (status.equals(ItemStatus.REJECTED.toString())) {
+			statusResponse = itemList.stream()
+					.filter(e -> e.getItemStatus().equals(ItemStatus.REJECTED.toString()) && e.getItemCreatedBy().equals(user))
+					.collect(Collectors.toList());
+		}
+		return statusResponse;
 	}
 
 }

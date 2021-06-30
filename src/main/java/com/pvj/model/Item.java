@@ -20,7 +20,7 @@ public class Item {
 	@Column(name = "ITEM_NAME", length = 10, nullable = false, unique = false)
 	private String itemName;
 	@Column(name = "ITEM_STATUS")
-	private ItemStatus itemStatus;
+	private String itemStatus;
 	@Column(name = "ITEM_TYPE")
 	private String itemType;
 	@Column(name = "ORDERED_DATE")
@@ -58,7 +58,7 @@ public class Item {
 
 	}
 
-	public Item(int itemId, String itemName, ItemStatus itemStatus, String itemType, LocalDateTime orderedDate,
+	public Item(int itemId, String itemName, String itemStatus, String itemType, LocalDateTime orderedDate,
 			long itemPrice, String itemPhoto, int itemQuantity, long itemQuality, long itemSize, long itemWeight,
 			LocalDateTime expectedDeliveryTime, String itemRemarks, String stoneRemarks, String enamelRemarks,
 			String rodiumRemarks, LocalDateTime itemLastUpdated, String itemCreatedBy, String itemWorkedBy) {
@@ -100,11 +100,11 @@ public class Item {
 		this.itemName = itemName;
 	}
 
-	public ItemStatus getItemStatus() {
+	public String getItemStatus() {
 		return itemStatus;
 	}
 
-	public void setItemStatus(ItemStatus itemStatus) {
+	public void setItemStatus(String itemStatus) {
 		this.itemStatus = itemStatus;
 	}
 

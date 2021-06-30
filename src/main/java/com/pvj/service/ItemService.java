@@ -43,7 +43,9 @@ public class ItemService {
 			item = CommonUtil.getGsonInstance().fromJson(body, Item.class);
 		}
 		Item response = itemResponse.populateItemResponse(item);
+		LOGGER.info("Storing new item in db");
 		itemRepository.save(response);
+		LOGGER.info("Successfully new item recorded"+ response.toString());
 		return response;
 	}
 

@@ -24,7 +24,7 @@ public class ItemResponse {
 		itemObj.setItemQuantity(item.getItemQuantity());
 		itemObj.setItemRemarks(item.getItemRemarks());
 		itemObj.setItemSize(item.getItemSize());
-		itemObj.setItemStatus(ItemStatus.ORDER);
+		itemObj.setItemStatus(ItemStatus.ORDER.toString());
 		itemObj.setItemType(item.getItemType());
 		itemObj.setItemWeight(item.getItemWeight());
 		itemObj.setOrderedDate(LocalDateTime.now());
@@ -32,6 +32,8 @@ public class ItemResponse {
 		itemObj.setStoneRemarks(item.getStoneRemarks());
 		itemObj.setEnamelRemarks(item.getEnamelRemarks());
 		itemObj.setItemLastUpdated(LocalDateTime.now());
+		itemObj.setItemCreatedBy(item.getItemCreatedBy());
+		itemObj.setItemWorkedBy(item.getItemWorkedBy());
 		return itemObj;
 	}
 	
