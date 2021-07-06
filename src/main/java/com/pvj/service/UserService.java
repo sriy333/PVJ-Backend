@@ -40,6 +40,7 @@ public class UserService {
 		if (isValidated) {
 			userValidationUtil.postUserValidationRequest(body);
 		}
+		LOGGER.info("Response body : "+body);
 		User user = CommonUtil.getGsonInstance().fromJson(body, User.class);
 		User response = userResponse.populateUserResponse(user);
 		LOGGER.info("Storing response to db");
