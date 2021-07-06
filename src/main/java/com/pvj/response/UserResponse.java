@@ -35,8 +35,6 @@ public class UserResponse {
 		}else {
 			obj.setUserType(null);
 		}
-		
-		obj.setUserScope(user.getUserScope());
 		return obj;
 	}
 	
