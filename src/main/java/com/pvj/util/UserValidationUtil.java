@@ -84,10 +84,6 @@ public class UserValidationUtil {
 					|| (json.get(UserConstants.EMAIL_ID) != null && (json.get(UserConstants.EMAIL_ID).isJsonNull()))) {
 				errorMessage.append("email id");
 			}
-			if (json.get(UserConstants.USER_SCOPE) == null || (json.get(UserConstants.USER_SCOPE) != null
-					&& (json.get(UserConstants.USER_SCOPE).isJsonNull()))) {
-				errorMessage.append("userScope");
-			}
 			if (json.get(UserConstants.USER_TYPE) == null || (json.get(UserConstants.USER_TYPE) != null
 					&& (json.get(UserConstants.USER_TYPE).isJsonNull()))) {
 				errorMessage.append("userType");
