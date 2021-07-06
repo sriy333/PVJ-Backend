@@ -9,6 +9,7 @@ import com.pvj.exception.GlobalResponseException;
 import com.pvj.model.ErrorMessage;
 import com.pvj.model.SuccessResponse;
 import com.pvj.model.User;
+import com.pvj.model.UserScope;
 import com.pvj.model.UserType;
 import com.pvj.util.CommonUtil;
 
@@ -23,6 +24,7 @@ public class UserResponse {
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
+		obj.setUserScope(UserScope.ADMIN_WRITE_READ);
 		obj.setUserShopName(user.getUserShopName());
 		obj.setLastUpdated(LocalDateTime.now().toString());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
