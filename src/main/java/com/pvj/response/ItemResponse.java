@@ -27,6 +27,9 @@ public class ItemResponse {
 		itemObj.setItemStatus(ItemStatus.ORDER.toString());
 		itemObj.setItemType(item.getItemType());
 		itemObj.setItemWeight(item.getItemWeight());
+		itemObj.setItemOrderImage(item.getItemOrderImage());
+		itemObj.setItemImageMid(item.getItemImageMid());
+		itemObj.setItemImageFinal(item.getItemImageFinal());
 		itemObj.setOrderedDate(LocalDateTime.now());
 		itemObj.setRodiumRemarks(item.getRodiumRemarks());
 		itemObj.setStoneRemarks(item.getStoneRemarks());

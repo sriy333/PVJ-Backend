@@ -37,6 +37,12 @@ public class Item {
 	private long itemSize;
 	@Column(name = "ITEM_WEIGHT")
 	private long itemWeight;
+	@Column(name = "ITEM_ORDER_IMAGE")
+	private String itemOrderImage;
+	@Column(name = "ITEM_IMAGE_MID")
+	private String itemImageMid;
+	@Column(name = "ITEM_IMAGE_FINAL")
+	private String itemImageFinal;
 	@Column(name = "EXPECTED_DELIVERY_TIME")
 	private String expectedDeliveryTime;
 	@Column(name = "ITEM_REMARKS")
@@ -60,8 +66,9 @@ public class Item {
 
 	public Item(int itemId, String itemName, String itemStatus, String itemType, LocalDateTime orderedDate,
 			long itemPrice, String itemPhoto, int itemQuantity, long itemQuality, long itemSize, long itemWeight,
-			String expectedDeliveryTime, String itemRemarks, String stoneRemarks, String enamelRemarks,
-			String rodiumRemarks, String itemLastUpdated, String itemCreatedBy, String itemWorkedBy) {
+			String itemOrderImage, String itemImageMid, String itemImageFinal, String expectedDeliveryTime,
+			String itemRemarks, String stoneRemarks, String enamelRemarks, String rodiumRemarks, String itemLastUpdated,
+			String itemCreatedBy, String itemWorkedBy) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -72,6 +79,9 @@ public class Item {
 		this.itemPhoto = itemPhoto;
 		this.itemQuantity = itemQuantity;
 		this.itemQuality = itemQuality;
+		this.itemOrderImage = itemOrderImage;
+		this.itemImageMid = itemImageMid;
+		this.itemImageFinal = itemImageFinal;
 		this.itemSize = itemSize;
 		this.itemWeight = itemWeight;
 		this.expectedDeliveryTime = expectedDeliveryTime;
@@ -172,6 +182,30 @@ public class Item {
 		this.itemWeight = itemWeight;
 	}
 
+	public String getItemOrderImage() {
+		return itemOrderImage;
+	}
+
+	public void setItemOrderImage(String itemOrderImage) {
+		this.itemOrderImage = itemOrderImage;
+	}
+
+	public String getItemImageMid() {
+		return itemImageMid;
+	}
+
+	public void setItemImageMid(String itemImageMid) {
+		this.itemImageMid = itemImageMid;
+	}
+
+	public String getItemImageFinal() {
+		return itemImageFinal;
+	}
+
+	public void setItemImageFinal(String itemImageFinal) {
+		this.itemImageFinal = itemImageFinal;
+	}
+
 	public String getExpectedDeliveryTime() {
 		return expectedDeliveryTime;
 	}
@@ -244,8 +278,11 @@ public class Item {
 		result = prime * result + ((expectedDeliveryTime == null) ? 0 : expectedDeliveryTime.hashCode());
 		result = prime * result + ((itemCreatedBy == null) ? 0 : itemCreatedBy.hashCode());
 		result = prime * result + itemId;
+		result = prime * result + ((itemImageFinal == null) ? 0 : itemImageFinal.hashCode());
+		result = prime * result + ((itemImageMid == null) ? 0 : itemImageMid.hashCode());
 		result = prime * result + ((itemLastUpdated == null) ? 0 : itemLastUpdated.hashCode());
 		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
+		result = prime * result + ((itemOrderImage == null) ? 0 : itemOrderImage.hashCode());
 		result = prime * result + ((itemPhoto == null) ? 0 : itemPhoto.hashCode());
 		result = prime * result + (int) (itemPrice ^ (itemPrice >>> 32));
 		result = prime * result + (int) (itemQuality ^ (itemQuality >>> 32));
@@ -288,6 +325,16 @@ public class Item {
 			return false;
 		if (itemId != other.itemId)
 			return false;
+		if (itemImageFinal == null) {
+			if (other.itemImageFinal != null)
+				return false;
+		} else if (!itemImageFinal.equals(other.itemImageFinal))
+			return false;
+		if (itemImageMid == null) {
+			if (other.itemImageMid != null)
+				return false;
+		} else if (!itemImageMid.equals(other.itemImageMid))
+			return false;
 		if (itemLastUpdated == null) {
 			if (other.itemLastUpdated != null)
 				return false;
@@ -297,6 +344,11 @@ public class Item {
 			if (other.itemName != null)
 				return false;
 		} else if (!itemName.equals(other.itemName))
+			return false;
+		if (itemOrderImage == null) {
+			if (other.itemOrderImage != null)
+				return false;
+		} else if (!itemOrderImage.equals(other.itemOrderImage))
 			return false;
 		if (itemPhoto == null) {
 			if (other.itemPhoto != null)
@@ -316,7 +368,10 @@ public class Item {
 			return false;
 		if (itemSize != other.itemSize)
 			return false;
-		if (itemStatus != other.itemStatus)
+		if (itemStatus == null) {
+			if (other.itemStatus != null)
+				return false;
+		} else if (!itemStatus.equals(other.itemStatus))
 			return false;
 		if (itemType == null) {
 			if (other.itemType != null)
@@ -353,8 +408,9 @@ public class Item {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", itemStatus=" + itemStatus + ", itemType="
 				+ itemType + ", orderedDate=" + orderedDate + ", itemPrice=" + itemPrice + ", itemPhoto=" + itemPhoto
 				+ ", itemQuantity=" + itemQuantity + ", itemQuality=" + itemQuality + ", itemSize=" + itemSize
-				+ ", itemWeight=" + itemWeight + ", expectedDeliveryTime=" + expectedDeliveryTime + ", itemRemarks="
-				+ itemRemarks + ", stoneRemarks=" + stoneRemarks + ", enamelRemarks=" + enamelRemarks
+				+ ", itemWeight=" + itemWeight + ", itemOrderImage=" + itemOrderImage + ", itemImageMid=" + itemImageMid
+				+ ", itemImageFinal=" + itemImageFinal + ", expectedDeliveryTime=" + expectedDeliveryTime
+				+ ", itemRemarks=" + itemRemarks + ", stoneRemarks=" + stoneRemarks + ", enamelRemarks=" + enamelRemarks
 				+ ", rodiumRemarks=" + rodiumRemarks + ", itemLastUpdated=" + itemLastUpdated + ", itemCreatedBy="
 				+ itemCreatedBy + ", itemWorkedBy=" + itemWorkedBy + "]";
 	}
