@@ -27,7 +27,7 @@ public class UserResponse {
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
 		obj.setUserScope(UserScope.ADMIN_WRITE_READ);
-		obj.setUserShopName(user.getUserShopName());
+		obj.setUserShopName(user.getUserShopName().toUpperCase());
 		obj.setLastUpdated(LocalDateTime.now().toString());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
 		if(user.getUserType().equals(UserType.SHOP)) {
@@ -61,7 +61,7 @@ public class UserResponse {
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
-		obj.setUserShopName(user.getUserShopName());
+		obj.setUserShopName(user.getUserShopName().toUpperCase());
 		obj.setLastUpdated(LocalDateTime.now().toString());
 		obj.setLastUpdatedBy(user.getLastUpdatedBy());
 		obj.setUserType(user.getUserType());
