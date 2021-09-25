@@ -17,6 +17,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
 	private int userId;
+	@Column(name = "USER_UUID")
+	private String userUUID;
 	@Column(name = "USER_NAME", length = 10, nullable = false, unique = false)
 	private String userName;
 	@Column(name = "USER_SHOP_NAME", length = 50, nullable = false, unique = false)
@@ -44,10 +46,11 @@ public class User {
 		
 	}
 
-	public User(int userId, String userName, String userShopName, String password, String phoneNumber, String gender,
+	public User(int userId,String userUUID, String userName, String userShopName, String password, String phoneNumber, String gender,
 			String emailId, UserScope userScope, UserType userType, String lastUpdated, String lastUpdatedBy) {
 		super();
 		this.userId = userId;
+		this.userUUID = userUUID;
 		this.userName = userName;
 		this.userShopName = userShopName;
 		this.password = password;
@@ -77,6 +80,14 @@ public class User {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getUserUUID() {
+		return userUUID;
+	}
+
+	public void setUserUUID(String userUUID) {
+		this.userUUID = userUUID;
 	}
 
 	public String getUserName() {
@@ -160,14 +171,6 @@ public class User {
 	}
 
 	@Override
-	public String toString() {
-		return "userId=" + userId + ", userName=" + userName + ", userShopName=" + userShopName + ", password="
-				+ password + ", phoneNumber=" + phoneNumber + ", gender=" + gender + ", emailId=" + emailId
-				+ ", userScope=" + userScope + ", userType=" + userType + ", lastUpdated=" + lastUpdated
-				+ ", lastUpdatedBy=" + lastUpdatedBy + "";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -182,6 +185,7 @@ public class User {
 		result = prime * result + ((userScope == null) ? 0 : userScope.hashCode());
 		result = prime * result + ((userShopName == null) ? 0 : userShopName.hashCode());
 		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
+		result = prime * result + ((userUUID == null) ? 0 : userUUID.hashCode());
 		return result;
 	}
 
@@ -219,7 +223,10 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (phoneNumber != other.phoneNumber)
+		if (phoneNumber == null) {
+			if (other.phoneNumber != null)
+				return false;
+		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
 		if (userId != other.userId)
 			return false;
@@ -237,7 +244,22 @@ public class User {
 			return false;
 		if (userType != other.userType)
 			return false;
+		if (userUUID == null) {
+			if (other.userUUID != null)
+				return false;
+		} else if (!userUUID.equals(other.userUUID))
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userUUID=" + userUUID + ", userName=" + userName + ", userShopName="
+				+ userShopName + ", password=" + password + ", phoneNumber=" + phoneNumber + ", gender=" + gender
+				+ ", emailId=" + emailId + ", userScope=" + userScope + ", userType=" + userType + ", lastUpdated="
+				+ lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + "]";
+	}
+
+	
 
 }
