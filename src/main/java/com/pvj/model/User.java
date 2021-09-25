@@ -19,6 +19,8 @@ public class User {
 	private int userId;
 	@Column(name = "USER_UUID")
 	private String userUUID;
+	@Column(name = "FCM_TOKEN")
+	private String fcmToken;
 	@Column(name = "USER_NAME", length = 10, nullable = false, unique = false)
 	private String userName;
 	@Column(name = "USER_SHOP_NAME", length = 50, nullable = false, unique = false)
@@ -43,14 +45,16 @@ public class User {
 	private String lastUpdatedBy;
 
 	public User() {
-		
+
 	}
 
-	public User(int userId,String userUUID, String userName, String userShopName, String password, String phoneNumber, String gender,
-			String emailId, UserScope userScope, UserType userType, String lastUpdated, String lastUpdatedBy) {
+	public User(int userId, String userUUID, String fcmToken, String userName, String userShopName, String password,
+			String phoneNumber, String gender, String emailId, UserScope userScope, UserType userType,
+			String lastUpdated, String lastUpdatedBy) {
 		super();
 		this.userId = userId;
 		this.userUUID = userUUID;
+		this.fcmToken = fcmToken;
 		this.userName = userName;
 		this.userShopName = userShopName;
 		this.password = password;
@@ -170,11 +174,20 @@ public class User {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
+	public String getFcmToken() {
+		return fcmToken;
+	}
+
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((fcmToken == null) ? 0 : fcmToken.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
 		result = prime * result + ((lastUpdatedBy == null) ? 0 : lastUpdatedBy.hashCode());
@@ -202,6 +215,11 @@ public class User {
 			if (other.emailId != null)
 				return false;
 		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (fcmToken == null) {
+			if (other.fcmToken != null)
+				return false;
+		} else if (!fcmToken.equals(other.fcmToken))
 			return false;
 		if (gender == null) {
 			if (other.gender != null)
@@ -254,12 +272,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", userUUID=" + userUUID + ", userName=" + userName + ", userShopName="
-				+ userShopName + ", password=" + password + ", phoneNumber=" + phoneNumber + ", gender=" + gender
-				+ ", emailId=" + emailId + ", userScope=" + userScope + ", userType=" + userType + ", lastUpdated="
-				+ lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + "]";
+		return "User [userId=" + userId + ", userUUID=" + userUUID + ", fcmToken=" + fcmToken + ", userName=" + userName
+				+ ", userShopName=" + userShopName + ", password=" + password + ", phoneNumber=" + phoneNumber
+				+ ", gender=" + gender + ", emailId=" + emailId + ", userScope=" + userScope + ", userType=" + userType
+				+ ", lastUpdated=" + lastUpdated + ", lastUpdatedBy=" + lastUpdatedBy + "]";
 	}
 
 	
-
 }

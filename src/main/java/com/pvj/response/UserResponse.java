@@ -21,6 +21,8 @@ public class UserResponse {
 		obj.setUserId(user.getUserId());
 		obj.setUserName(user.getUserName());
 		obj.setPassword(user.getPassword());
+		obj.setFcmToken(user.getFcmToken());
+		obj.setUserUUID(user.getUserUUID());
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
 		obj.setPhoneNumber(user.getPhoneNumber());
@@ -53,6 +55,8 @@ public class UserResponse {
 		User obj = new User();
 		obj.setUserId(existingUserDetials.getUserId());
 		obj.setUserName(user.getUserName());
+		obj.setFcmToken(user.getFcmToken());
+		obj.setUserUUID(user.getUserUUID());
 		obj.setPassword(user.getPassword());
 		obj.setEmailId(user.getEmailId());
 		obj.setGender(user.getGender());
