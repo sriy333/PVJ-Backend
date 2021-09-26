@@ -1,5 +1,6 @@
 package com.pvj.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class ItemController {
 	}
 
 	@PostMapping(value = "/item", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String postItem(@RequestBody String body) {
+	public String postItem(@RequestBody String body) throws IOException {
 		try {
 			LOGGER.info("Initiating request for creating item");
 			Item itemResponse = itemService.saveItem(body);

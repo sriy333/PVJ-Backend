@@ -14,4 +14,7 @@ public class HTTPStatusCode {
 	public static final int FORBIDDEN = 403;
 	public static final int METHOD_NOT_ALLOWED = 405;
 	public static final int BAD_GATEWAY = 502;
+	public static final String AUTHORIZATIOIN = "Authorization";
+	public static final String FCM_AUTHORIZATIOIN = "key=AAAANew83UQ:APA91bHBuWnBqVm-PjY9FpTvXvYBkdpmLoaP85Jy8WHkVSJTxj_GjtgeeKdJQbwuhhSle9f5dk9-arLitukUJ2SED0w6eggM58ES6hbtJnq-ThATYFkA5QkbSO4Y4EKiiVq2a5Z-t5-Q";
+	public static final String NOTIFICATION_URL = "https://fcm.googleapis.com/fcm/send";
 }

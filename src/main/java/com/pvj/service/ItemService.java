@@ -3,6 +3,7 @@ package com.pvj.service;
 import static com.pvj.constants.ErrorMessages.ITEM_NOT_FOUND;
 import static com.pvj.constants.ErrorMessages.SQL_CONNECTION_EXCEPTION;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +35,11 @@ public class ItemService {
 
 	@Autowired
 	private ItemResponse itemResponse;
+	
+	@Autowired
+	private FlowOrderPlanner flowOrderPlanner;
 
-	public Item saveItem(String body) throws GlobalResponseException {
+	public Item saveItem(String body) throws GlobalResponseException, IOException {
 		LOGGER.info("Navigating for validation");
 		Boolean isValidated = itemValidationUtil.postRequestItemManditoryCheckParam(body);
 		Item item = null;
@@ -45,6 +49,8 @@ public class ItemService {
 		Item response = itemResponse.populateItemResponse(item);
 		LOGGER.info("Storing new item in db");
 		itemRepository.save(response);
+		LOGGER.info("Pushing notification to respective fcm tokens");
+		flowOrderPlanner.pushNotification();
 		LOGGER.info("Successfully new item recorded"+ response.toString());
 		return response;
 	}
